@@ -29,3 +29,33 @@ Gemfile
 gem 'rails_12factor'
 
 % bundle install
+
+### herokuへデプロイ（初回のみ）
+if Heroku CLI未インストール
+  % brew tap heroku/brew && brew install heroku
+end
+if heroku未ログイン
+  % heroku login --interactive
+end
+
+heroku上にアプリケーション作成；
+% heroku create furima-31108
+確認；
+% git config --list | grep heroku
+
+heroku上でMYSQLを使えるようにする；
+% heroku addons:add cleardb
+% heroku_cleardb=`heroku config:get CLEARDB_DATABASE_URL`
+% heroku config:set DATABASE_URL=mysql2${heroku_cleardb:5}
+
+環境変数設定；
+% heroku config:set RAILS_MASTER_KEY=`cat config/master.key`
+確認；
+% heroku config
+
+### herokuへデプロイ（毎回）
+herokuへプッシュ；（5分程かかる）
+% git push heroku master
+
+heroku上でマイグレーションファイル実行；
+% heroku run rails db:migrate
