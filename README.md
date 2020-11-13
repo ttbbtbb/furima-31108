@@ -23,10 +23,10 @@
 | name | string | null: false |
 | info | text | null: false |
 | category | integer | null: false |
-| sales-status | integer | null: false |
-| shipping-fee-status | integer | null: false |
+| sales_status | integer | null: false |
+| shipping_fee_status | integer | null: false |
 | prefecture | integer | null: false |
-| scheduled-delivery | integer | null: false |
+| scheduled_delivery | integer | null: false |
 | price | integer | null: false |
 
 ### Association
