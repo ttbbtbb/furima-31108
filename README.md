@@ -4,8 +4,8 @@
 | Column | Type | Options |
 | -- | -- | -- |
 | nickname | string | null: false |
-| email | string | null: false, uniq |
-| password | string | null: false |
+| email | string | null: false, unique: true |
+| encrypted_password | string | null: false |
 | family_name | string | null: false |
 | given_name | string | null: false |
 | family_name_kana | string | null: false |
@@ -20,14 +20,13 @@
 | Column | Type | Options |
 | -- | -- | -- |
 | user_id | references | null: false, foreign_key: true |
-| image | binary | null: false |
 | name | string | null: false |
 | info | text | null: false |
-| category | string | null: false |
-| sales-status | string | null: false |
-| shipping-fee-status | string | null: false |
-| prefecture | string | null: false |
-| scheduled-delivery | string | null: false |
+| category | integer | null: false |
+| sales-status | integer | null: false |
+| shipping-fee-status | integer | null: false |
+| prefecture | integer | null: false |
+| scheduled-delivery | integer | null: false |
 | price | integer | null: false |
 
 ### Association
