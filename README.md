@@ -38,13 +38,21 @@
 | -- | -- | -- |
 | user_id | references | null: false, foreign_key: true |
 | item_id | references | null: false, foreign_key: true |
-| postal-code | string | null: false |
-| prefecture | string | null: false |
-| city | string | null: false |
-| addresses | string | null: false |
-| building | string | null: false |
-| phone-number | string | null: false |
 
 ### Association
 - belongs_to :user
 - belongs_to :item
+
+## address table
+| Column | Type | Options |
+| -- | -- | -- |
+| order_id | references | null: false, foreign_key: true |
+| postal_code | string | null: false |
+| address_level1 | string | null: false |
+| address_level2 | string | null: false |
+| address_line1 | string | null: false |
+| address_line2 | string | null: false |
+| tel | string | null: false |
+
+### Association
+- belongs_to :order
