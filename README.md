@@ -19,14 +19,14 @@
 ## items table
 | Column | Type | Options |
 | -- | -- | -- |
-| user_id | references | null: false, foreign_key: true |
+| user | references | null: false, foreign_key: true |
 | name | string | null: false |
 | info | text | null: false |
-| category | integer | null: false |
-| sales_status | integer | null: false |
-| shipping_fee_status | integer | null: false |
-| prefecture | integer | null: false |
-| scheduled_delivery | integer | null: false |
+| category_id | integer | null: false |
+| sales_status_id | integer | null: false |
+| shipping_fee_status_id | integer | null: false |
+| prefecture_id | integer | null: false |
+| scheduled_delivery_id | integer | null: false |
 | price | integer | null: false |
 
 ### Association
@@ -36,8 +36,8 @@
 ## orders table
 | Column | Type | Options |
 | -- | -- | -- |
-| user_id | references | null: false, foreign_key: true |
-| item_id | references | null: false, foreign_key: true |
+| user | references | null: false, foreign_key: true |
+| item | references | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :user
@@ -47,12 +47,12 @@
 ## addresses table
 | Column | Type | Options |
 | -- | -- | -- |
-| order_id | references | null: false, foreign_key: true |
+| order | references | null: false, foreign_key: true |
 | postal_code | string | null: false |
-| address_level1 | string | null: false |
-| address_level2 | string | null: false |
-| address_line1 | string | null: false |
-| address_line2 | string | null: false |
+| prefecture | string | null: false |
+| city | string | null: false |
+| lot_number | string | null: false |
+| building | string | |
 | tel | string | null: false |
 
 ### Association
