@@ -33,7 +33,7 @@
 - belongs_to :user
 - has_one :order
 
-## order table
+## orders table
 | Column | Type | Options |
 | -- | -- | -- |
 | user_id | references | null: false, foreign_key: true |
@@ -42,8 +42,9 @@
 ### Association
 - belongs_to :user
 - belongs_to :item
+- has_one :address
 
-## address table
+## addresses table
 | Column | Type | Options |
 | -- | -- | -- |
 | order_id | references | null: false, foreign_key: true |
