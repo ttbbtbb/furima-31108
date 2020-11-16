@@ -5,13 +5,16 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates :email, uniqueness: true
-  validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i }
+  EISU_MIX_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i
+  validates :password, format: { with: EISU_MIX_REGEX }
   with_options presence: true do
     validates :nickname
     validates :birth_date
-    validates :family_name, format: { with: /\A[ァ-ヶー－ぁ-ん一-龥]+\z/ }
-    validates :given_name, format: { with: /\A[ァ-ヶー－ぁ-ん一-龥]+\z/ }
-    validates :family_name_kana, format: { with: /\A[ァ-ヶー－]+\z/ }
-    validates :given_name_kana, format: { with: /\A[ァ-ヶー－]+\z/ }
+    WIDE_REGEX = /\A[ァ-ヶー－ぁ-ん一-龥]+\z/
+    validates :family_name, format: { with: WIDE_REGEX }
+    validates :given_name, format: { with: WIDE_REGEX }
+    WIDE_KATAKANA_REGEX = /\A[ァ-ヶー－]+\z/
+    validates :family_name_kana, format: { with: WIDE_KATAKANA_REGEX }
+    validates :given_name_kana, format: { with: WIDE_KATAKANA_REGEX }
   end
 end
