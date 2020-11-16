@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'checks#index'
+  root to: 'items#index'
   get 'checks/index'
   resources :items
   devise_for :users
