@@ -18,4 +18,6 @@ class User < ApplicationRecord
     validates :family_name_kana, format: { with: WIDE_KATAKANA_REGEX }
     validates :given_name_kana, format: { with: WIDE_KATAKANA_REGEX }
   end
+
+  has_many :items
 end
