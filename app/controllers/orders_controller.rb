@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   def new
-    @model = Model.new
+    # @model = Model.new
   end
 
   def create
