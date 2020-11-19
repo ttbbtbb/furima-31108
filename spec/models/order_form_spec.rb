@@ -76,8 +76,23 @@ RSpec.describe OrderForm, type: :model do
         @order_form.valid?
         expect(@order_form.errors.full_messages).to include("Tel can't be blank")
       end
-      it 'tel が正しい形式でないと登録できないこと' do
+      it 'tel に数字以外が含まれていると登録できないこと' do
         @order_form.tel = '090-123-456'
+        @order_form.valid?
+        expect(@order_form.errors.full_messages).to include('Tel is invalid')
+      end
+      it 'tel が12桁以上だと登録できないこと' do
+        @order_form.tel = '090123456789'
+        @order_form.valid?
+        expect(@order_form.errors.full_messages).to include('Tel is invalid')
+      end
+      it 'tel が9桁以下だと登録できないこと' do
+        @order_form.tel = '090123456'
+        @order_form.valid?
+        expect(@order_form.errors.full_messages).to include('Tel is invalid')
+      end
+      it 'tel の先頭が0以外だと登録できないこと' do
+        @order_form.tel = '1234567890'
         @order_form.valid?
         expect(@order_form.errors.full_messages).to include('Tel is invalid')
       end
