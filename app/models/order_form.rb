@@ -1,8 +1,9 @@
 class OrderForm
   include ActiveModel::Model
-  attr_accessor :user_id, :item_id, :postal_code, :prefecture_id, :city, :house_number, :building_name, :tel
+  attr_accessor :user_id, :item_id, :postal_code, :prefecture_id, :city, :house_number, :building_name, :tel, :token 
 
   with_options presence: true do
+    validates :token
     validates :postal_code, format: {with: /\A\d{3}-\d{4}\z/ }
     validates :prefecture_id, numericality: { other_than: 1 }
     validates :city
