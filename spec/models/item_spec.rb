@@ -4,107 +4,101 @@ RSpec.describe Item, type: :model do
   before do
     @item = FactoryBot.build(:item)
   end
+
   describe '出品登録' do
-    context '出品登録がうまくいくとき' do
-      it '各項目が存在すれば登録できること' do
+    context '正常系' do
+      it '各項目が正しい形式で入力されていれば正常に処理されること' do
         expect(@item).to be_valid
       end
     end
 
-    context '出品登録がうまくいかないとき' do
-      it 'imageが空では登録できないこと' do
+    context '異常系' do
+      it 'image の値が nil だと blank エラーが発生すること' do
         @item.image = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include("Image can't be blank")
+        expect(@item.errors.of_kind?(:image, :blank)).to be_truthy
       end
-
-      it 'nameが空では登録できないこと' do
+      it 'name の値が nil だと blank エラーが発生すること' do
         @item.name = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include("Name can't be blank")
+        expect(@item.errors.of_kind?(:name, :blank)).to be_truthy
       end
-
-      it 'infoが空では登録できないこと' do
+      it 'info の値が nil だと blank エラーが発生すること' do
         @item.info = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include("Info can't be blank")
+        expect(@item.errors.of_kind?(:info, :blank)).to be_truthy
       end
-
-      it 'category_idが空では登録できないこと' do
+      it 'category_id の値が nil だと blank エラーが発生すること' do
         @item.category_id = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include("Category can't be blank")
+        expect(@item.errors.of_kind?(:category_id, :blank)).to be_truthy
       end
-      it 'category_idが未選択では登録できないこと' do
-        @item.category_id = 1
-        @item.valid?
-        expect(@item.errors.full_messages).to include('Category must be other than 1')
-      end
-
-      it 'sales_status_idが空では登録できないこと' do
+      it 'sales_status_id の値が nil だと blank エラーが発生すること' do
         @item.sales_status_id = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include("Sales status can't be blank")
+        expect(@item.errors.of_kind?(:sales_status_id, :blank)).to be_truthy
       end
-      it 'sales_status_idが未選択では登録できないこと' do
-        @item.sales_status_id = 1
-        @item.valid?
-        expect(@item.errors.full_messages).to include('Sales status must be other than 1')
-      end
-
-      it 'shipping_fee_status_idが空では登録できないこと' do
+      it 'shipping_fee_status_id の値が nil だと blank エラーが発生すること' do
         @item.shipping_fee_status_id = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping fee status can't be blank")
+        expect(@item.errors.of_kind?(:shipping_fee_status_id, :blank)).to be_truthy
       end
-      it 'shipping_fee_status_idが未選択では登録できないこと' do
-        @item.shipping_fee_status_id = 1
-        @item.valid?
-        expect(@item.errors.full_messages).to include('Shipping fee status must be other than 1')
-      end
-
-      it 'prefecture_idが空では登録できないこと' do
+      it 'prefecture_id の値が nil だと blank エラーが発生すること' do
         @item.prefecture_id = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include("Prefecture can't be blank")
+        expect(@item.errors.of_kind?(:prefecture_id, :blank)).to be_truthy
       end
-      it 'prefecture_idが未選択では登録できないこと' do
-        @item.prefecture_id = 1
-        @item.valid?
-        expect(@item.errors.full_messages).to include('Prefecture must be other than 1')
-      end
-
-      it 'scheduled_delivery_idが空では登録できないこと' do
+      it 'scheduled_delivery_id の値が nil だと blank エラーが発生すること' do
         @item.scheduled_delivery_id = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include("Scheduled delivery can't be blank")
+        expect(@item.errors.of_kind?(:scheduled_delivery_id, :blank)).to be_truthy
       end
-      it 'scheduled_delivery_idが未選択では登録できないこと' do
-        @item.scheduled_delivery_id = 1
-        @item.valid?
-        expect(@item.errors.full_messages).to include('Scheduled delivery must be other than 1')
-      end
-
-      it 'priceが空では登録できないこと' do
+      it 'price の値が nil だと blank エラーが発生すること' do
         @item.price = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include('Price is not a number')
-      end
-      it 'priceが299円以下では登録できないこと' do
-        @item.price = 299
-        @item.valid?
-        expect(@item.errors.full_messages).to include('Price must be greater than or equal to 300')
-      end
-      it 'priceが10000000円以上では登録できないこと' do
-        @item.price = 10_000_000
-        @item.valid?
-        expect(@item.errors.full_messages).to include('Price must be less than or equal to 9999999')
+        expect(@item.errors.of_kind?(:price, :blank)).to be_truthy
       end
 
-      it 'userが紐付いていないと登録できないこと' do
+      it 'category_id の値が 1 だと other_than エラーが発生すること' do
+        @item.category_id = 1
+        @item.valid?
+        expect(@item.errors.of_kind?(:category_id, :other_than)).to be_truthy
+      end
+      it 'sales_status_id の値が 1 だと other_than エラーが発生すること' do
+        @item.sales_status_id = 1
+        @item.valid?
+        expect(@item.errors.of_kind?(:sales_status_id, :other_than)).to be_truthy
+      end
+      it 'shipping_fee_status_id の値が 1 だと other_than エラーが発生すること' do
+        @item.shipping_fee_status_id = 1
+        @item.valid?
+        expect(@item.errors.of_kind?(:shipping_fee_status_id, :other_than)).to be_truthy
+      end
+      it 'prefecture_id の値が 1 だと other_than エラーが発生すること' do
+        @item.prefecture_id = 1
+        @item.valid?
+        expect(@item.errors.of_kind?(:prefecture_id, :other_than)).to be_truthy
+      end
+      it 'scheduled_delivery_id の値が 1 だと other_than エラーが発生すること' do
+        @item.scheduled_delivery_id = 1
+        @item.valid?
+        expect(@item.errors.of_kind?(:scheduled_delivery_id, :other_than)).to be_truthy
+      end
+
+      it 'user の値が nil だと blank エラーが発生すること' do
         @item.user = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include('User must exist')
+        expect(@item.errors.of_kind?(:user, :blank)).to be_truthy
+      end
+      it 'price の値が 299 だと greater_than_or_equal_to エラーが発生すること' do
+        @item.price = 299
+        @item.valid?
+        expect(@item.errors.of_kind?(:price, :greater_than_or_equal_to)).to be_truthy
+      end
+      it 'price の値が 10000000 だと less_than_or_equal_to エラーが発生すること' do
+        @item.price = 10000000
+        @item.valid?
+        expect(@item.errors.of_kind?(:price, :less_than_or_equal_to)).to be_truthy
       end
     end
   end
